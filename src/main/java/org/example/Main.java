@@ -15,7 +15,8 @@ public class Main {
             System.out.println("2. Conversor de moneda");
             System.out.println("3. Calculo del IMC");
             System.out.println("4. Registro de temperatura");
-            System.out.println("5. Salir");
+            System.out.println("5. Contador de dias");
+            System.out.println("6. Salir");
             System.out.print("ingrese la opcion deseada: ");
             opcionMenu=leerDato.nextInt();
             switch (opcionMenu){
@@ -85,6 +86,26 @@ public class Main {
                             "de: "+promedioTemp);
                     break;
                 case 5:
+                    System.out.println("ingrese la primera fecha en el formato: dd-mm-aaaa");
+                    String fechaPrimera=leerDato.next();
+                    leerDato.nextLine();
+                    System.out.println("ingrese la segunda fecha en el formato: dd-mm-aaaa");
+                    String fechaSegunda=leerDato.next(); // preguntar al profe sobre este error
+                    String[] partesfecha1=fechaPrimera.split("-");
+                    String[] partesfecha2=fechaSegunda.split("-");
+                    int dia1= Integer.parseInt(partesfecha1[0]);
+                    int dia2= Integer.parseInt(partesfecha2[0]);
+                    int mes1= Integer.parseInt(partesfecha1[1]);
+                    int mes2= Integer.parseInt(partesfecha2[1]);
+                    int año1= Integer.parseInt(partesfecha1[2]);
+                    int año2= Integer.parseInt(partesfecha2[2]);
+                    int diasFecha1=(dia1*30)+(mes1*12)+(año1*365);
+                    int diasFecha2=(dia2*30)+(mes2*12)+(año2*365);
+                    System.out.println("la diferencia de dias entre las dos fechas es" +
+                            "de: "+(diasFecha1-diasFecha2)+" dias");
+
+                    break;
+                case 6:
                     System.exit(0);
 
                 default:
