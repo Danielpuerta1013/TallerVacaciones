@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        int opcionMenu;
+        do {
         Scanner leerDato= new Scanner(System.in); // nuevo scanner
-        int opcionMenu; // esta será la opcion del menú
-        while (true){
+         // esta será la opcion del menú
             System.out.println("------------------------------");
             System.out.println("------------------------------");
             System.out.println("------------------------------");
@@ -18,6 +19,7 @@ public class Main {
             System.out.println("5. Contador de dias");
             System.out.println("6. Salir");
             System.out.print("ingrese la opcion deseada: ");
+            // que diferencia hay si uso int variable = Integer.valueOf(scanner.nextLine());
             opcionMenu=leerDato.nextInt();
             switch (opcionMenu){
                 case 1:
@@ -40,13 +42,13 @@ public class Main {
                     if (opcionCase2==1){
                         System.out.print("ingrese el monto en COP a convertir: ");
                         double montoCop=leerDato.nextDouble();
-                        System.out.println("la cantidad en dolares es de: "+ montoCop/3900.0);
+                        System.out.println("la cantidad en dolares es de: "+ convertirCopUsd(montoCop));
                         break;
 
                     } else if (opcionCase2==2) {
                         System.out.print("ingrese el monto en USD a convertir: ");
                         double montoUsd=leerDato.nextDouble();
-                        System.out.println("la cantidad en pesos es de: "+ montoUsd*3900.0);
+                        System.out.println("la cantidad en pesos es de: "+ convertirUsdCop(montoUsd));
                         break;
                     }else{
                         System.out.println("ingrese una opcion valida");
@@ -106,7 +108,8 @@ public class Main {
 
                     break;
                 case 6:
-                    System.exit(0);
+                    System.out.println("Vuelva pronto");
+                    break;
 
                 default:
                     System.out.println("opcion no valida");
@@ -115,6 +118,18 @@ public class Main {
 
 
 
-        }
+        }while(opcionMenu!=6);
     }
+    /**
+     * Descripción: función que convierte pesos colombianos a dolares
+     * @param cantidadCop Cantidad de pesos colombianos
+     * @return devuelve la cantidad en USD
+     * */
+    public static double convertirCopUsd(double cantidadCop) {
+        return cantidadCop / 3919.87;
+    }
+    public static double convertirUsdCop(double cantidadUsd){
+        return cantidadUsd*3919.87;
+        }
+
 }
