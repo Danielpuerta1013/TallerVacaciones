@@ -17,7 +17,9 @@ public class Main {
             System.out.println("3. Calculo del IMC");
             System.out.println("4. Registro de temperatura");
             System.out.println("5. Contador de dias");
-            System.out.println("6. Salir");
+            System.out.println("6. Calculadora de gastos de viaje");
+            System.out.println("7. Conversion de temperatura");
+            System.out.println("8. Salir");
             System.out.print("ingrese la opcion deseada: ");
             // que diferencia hay si uso int variable = Integer.valueOf(scanner.nextLine());
             opcionMenu=leerDato.nextInt();
@@ -72,20 +74,23 @@ public class Main {
                     }
                     break;
                 case 4:
-                    System.out.println("Promedio de temperaturas");
-                    System.out.println("ingrese la temperatura 1/5: ");
-                    double temp1=leerDato.nextDouble();
-                    System.out.println("ingrese la temperatura 2/5: ");
-                    double temp2=leerDato.nextDouble();
-                    System.out.println("ingrese la temperatura 3/5: ");
-                    double temp3=leerDato.nextDouble();
-                    System.out.println("ingrese la temperatura 4/5: ");
-                    double temp4=leerDato.nextDouble();
-                    System.out.println("ingrese la temperatura 5/5: ");
-                    double temp5=leerDato.nextDouble();
-                    double promedioTemp=(temp1+temp2+temp3+temp4+temp5)/5;
-                    System.out.println("El promedio de las temperaturas ingresadas es" +
-                            "de: "+promedioTemp);
+                    double sumaTemperaturas=0;
+                    int contador =0;
+                    int contadorPrint=1;
+                    while (true){
+                        System.out.println("ingrese la temperatura #"+contadorPrint+" o ingrese -1" +
+                                "para finalizar y calcular el promedio");
+                        double temperatura= leerDato.nextDouble();
+                        if (temperatura==-1){
+                            break;
+                        }
+                        sumaTemperaturas+=temperatura;
+                        contador++;
+                        contadorPrint++;
+                    }
+                    double promedioTemp=sumaTemperaturas/contador;
+                    System.out.println("El promedio de las "+ (contadorPrint-1)+ " temperaturas es:"+
+                            promedioTemp);
                     break;
                 case 5:
                     System.out.println("ingrese la primera fecha en el formato: dd-mm-aaaa");
@@ -93,21 +98,28 @@ public class Main {
                     leerDato.nextLine();
                     System.out.println("ingrese la segunda fecha en el formato: dd-mm-aaaa");
                     String fechaSegunda=leerDato.next(); // preguntar al profe sobre este error
-                    String[] partesfecha1=fechaPrimera.split("-");
-                    String[] partesfecha2=fechaSegunda.split("-");
-                    int dia1= Integer.parseInt(partesfecha1[0]);
-                    int dia2= Integer.parseInt(partesfecha2[0]);
-                    int mes1= Integer.parseInt(partesfecha1[1]);
-                    int mes2= Integer.parseInt(partesfecha2[1]);
-                    int año1= Integer.parseInt(partesfecha1[2]);
-                    int año2= Integer.parseInt(partesfecha2[2]);
-                    int diasFecha1=(dia1*30)+(mes1*12)+(año1*365);
-                    int diasFecha2=(dia2*30)+(mes2*12)+(año2*365);
-                    System.out.println("la diferencia de dias entre las dos fechas es" +
-                            "de: "+(diasFecha1-diasFecha2)+" dias");
+                    System.out.println("la diferencia de dias entre las dos fechas es " +
+                            "de: "+(Math.abs(diferenciaDias(fechaPrimera,fechaSegunda)))+" dias");
 
                     break;
                 case 6:
+                    System.out.println("-----------------");
+                    System.out.println("Ingrese el numero de kilometros a recorrer");
+                    double distanciaKilometros=leerDato.nextDouble();
+                    System.out.println("Ingrese el costo por kilometro");
+                    double costoKilometro= leerDato.nextDouble();
+                    System.out.println("Ingrese el valor de otros gastos adicionales");
+                    double costosAdicionales=leerDato.nextDouble();
+                    System.out.println("El costo total es de: $"+calculoViaje(distanciaKilometros,
+                            costoKilometro,costosAdicionales));
+                    break;
+                case 7:
+                    System.out.println("Ingrese la cantidad en Celcius a convertir");
+                    double gradosCelcius=leerDato.nextDouble();
+                    double gradosFar=(9.0/5.0)*gradosCelcius+32;
+                    System.out.println("la temperatura en fahrenheir es de: "+ gradosFar);
+                    break;
+                case 8:
                     System.out.println("Vuelva pronto");
                     break;
 
@@ -118,7 +130,7 @@ public class Main {
 
 
 
-        }while(opcionMenu!=6);
+        }while(opcionMenu!=8);
     }
     /**
      * Descripción: función que convierte pesos colombianos a dolares
@@ -131,5 +143,25 @@ public class Main {
     public static double convertirUsdCop(double cantidadUsd){
         return cantidadUsd*3919.87;
         }
+     public static int diferenciaDias(String fecha1, String fecha2){
+         String[] partesfecha1=fecha1.split("-");
+         String[] partesfecha2=fecha2.split("-");
+         int dia1= Integer.parseInt(partesfecha1[0]);
+         int dia2= Integer.parseInt(partesfecha2[0]);
+         int mes1= Integer.parseInt(partesfecha1[1]);
+         int mes2= Integer.parseInt(partesfecha2[1]);
+         int ano1= Integer.parseInt(partesfecha1[2]);
+         int ano2= Integer.parseInt(partesfecha2[2]);
+         int diferenciaAnos=ano2-ano1;
+         int diferenciaMeses=mes2-mes1;
+         int diferenciaDias=dia2-dia1;
+         int calculoDias=(diferenciaAnos)*365 +(diferenciaMeses)*12+(diferenciaDias);
+         return calculoDias;
+     }
+    public static double calculoViaje(double distancia,double costoDitancia,double costoAdicional){
+        double totalViaje= (distancia*costoDitancia)+costoAdicional;
+        return totalViaje;
+    }
+
 
 }
