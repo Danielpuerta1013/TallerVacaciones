@@ -1,5 +1,7 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class Main {
@@ -143,7 +145,7 @@ public class Main {
     public static double convertirUsdCop(double cantidadUsd){
         return cantidadUsd*3919.87;
         }
-     public static int diferenciaDias(String fecha1, String fecha2){
+     public static long diferenciaDias(String fecha1, String fecha2){
          String[] partesfecha1=fecha1.split("-");
          String[] partesfecha2=fecha2.split("-");
          int dia1= Integer.parseInt(partesfecha1[0]);
@@ -152,11 +154,10 @@ public class Main {
          int mes2= Integer.parseInt(partesfecha2[1]);
          int ano1= Integer.parseInt(partesfecha1[2]);
          int ano2= Integer.parseInt(partesfecha2[2]);
-         int diferenciaAnos=ano2-ano1;
-         int diferenciaMeses=mes2-mes1;
-         int diferenciaDias=dia2-dia1;
-         int calculoDias=(diferenciaAnos)*365 +(diferenciaMeses)*12+(diferenciaDias);
-         return calculoDias;
+         LocalDate fechaInicio=LocalDate.of(ano1,mes1,dia1);
+         LocalDate fechaFin=LocalDate.of(ano2,mes2,dia2);
+         long diferenciaDias= ChronoUnit.DAYS.between(fechaInicio,fechaFin);
+         return diferenciaDias;
      }
     public static double calculoViaje(double distancia,double costoDitancia,double costoAdicional){
         double totalViaje= (distancia*costoDitancia)+costoAdicional;
